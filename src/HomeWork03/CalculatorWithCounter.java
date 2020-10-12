@@ -126,9 +126,6 @@ public class CalculatorWithCounter {
      */
     public double division(double divisible, double divisor){
         setCountOperation();
-        if(divisor == 0.0){
-            return 0.0;
-        };
         if(calculatorWithMathExtends != null){
             return calculatorWithMathExtends.division(divisible, divisor);
         } else if(calculatorWithMathCopy != null){
@@ -151,6 +148,66 @@ public class CalculatorWithCounter {
     }
 
 
+    /**
+     * Методя для возведения числа в целую степень
+     * @param base основание (число, которое возводим в степень)
+     * @param degree степень
+     * @return основание возведённое в степень
+     */
+    public double power(double base, int degree) {
+        setCountOperation();
+        if(calculatorWithMathExtends != null){
+            return calculatorWithMathExtends.power(base, degree);
+        } else if(calculatorWithMathCopy != null){
+            return calculatorWithMathCopy.power(base, degree);
+        } else{
+            return calculatorWithOperator.power(base, degree);
+        }
+    }
 
+    public double power(int base, int degree){
+        return power((double) base, degree);
+    }
+
+    /**
+     * Метод возвращает модуль входного числа
+     * @param number ислодное число
+     * @return модуль исходного числа
+     */
+    public double module(double number){
+        setCountOperation();
+        if(calculatorWithMathExtends != null){
+            return calculatorWithMathExtends.module(number);
+        } else if(calculatorWithMathCopy != null){
+            return calculatorWithMathCopy.module(number);
+        } else{
+            return calculatorWithOperator.module(number);
+        }
+    }
+
+    public double module(int number){
+        return module((double) number);
+    }
+
+    /**
+     * Методя для вычисления корня заданной степени
+     * @param number число, корень которого нужно найти
+     * @param radical степень корня
+     * @return корень исходного числа
+     */
+    public double root(double number, int radical) {
+        setCountOperation();
+        if(calculatorWithMathExtends != null){
+            return calculatorWithMathExtends.root(number, radical);
+        } else if(calculatorWithMathCopy != null){
+            return calculatorWithMathCopy.root(number, radical);
+        } else{
+            return calculatorWithOperator.root(number, radical);
+        }
+    }
+
+    public double root(int number, int radical){
+        return root((double) number, radical);
+    }
 
 }

@@ -105,7 +105,7 @@ public class CalculatorWithOperator {
         }
         double result = 1.0;
         if(degree == 0) {
-            result = 0.0;
+            result = 1.0;
         } else if(degree > 0) {
             for (int i= 0; i < degree; i++) {
                 result *= base;
