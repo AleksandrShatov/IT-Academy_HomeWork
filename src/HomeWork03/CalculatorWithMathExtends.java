@@ -1,6 +1,6 @@
 package HomeWork03;
 
-public class CalculatorWithMathExtends extends CalculatorWithOperator {
+public class CalculatorWithMathExtends extends CalculatorWithOperator implements ICalculator {
 
     /**
      * Методя для возведения числа в целую степень

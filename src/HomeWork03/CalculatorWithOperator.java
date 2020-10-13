@@ -1,6 +1,6 @@
 package HomeWork03;
 
-public class CalculatorWithOperator {
+public class CalculatorWithOperator implements ICalculator {
 
     /**
      * Метод для вычисления суммы двух чисел

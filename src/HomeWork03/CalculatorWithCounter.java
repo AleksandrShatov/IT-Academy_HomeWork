@@ -1,7 +1,7 @@
 package HomeWork03;
 
-public class CalculatorWithCounter {
-    private long countOperation = 0;
+public class CalculatorWithCounter implements ICalculator {
+    private long countOperation = 0L;
 
     private CalculatorWithOperator calculatorWithOperator;
     private CalculatorWithMathCopy calculatorWithMathCopy;
