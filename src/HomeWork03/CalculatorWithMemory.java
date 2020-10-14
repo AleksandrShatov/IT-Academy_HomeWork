@@ -1,6 +1,6 @@
 package HomeWork03;
 
-public class CalculatorWithMemory implements ICalculatorWithMemory {
+public class CalculatorWithMemory implements ICalculator {
     private double memory = 0.0;
 
     private ICalculator calculator;
@@ -13,10 +13,18 @@ public class CalculatorWithMemory implements ICalculatorWithMemory {
         this(new CalculatorWithOperator());
     }
 
+    /**
+     * Метод записывающий значение результата в память (поле класса memory)
+     * @param value значение, которое будет помещено в память
+     */
     private void setMemory(double value){
         this.memory = value;
     }
 
+    /**
+     * Метод достающий значение из памяти и приэтом очищающий память в 0.
+     * @return возвращает значение из памяти
+     */
     public double getMemory(){
         double tmpMem = this.memory;
         this.memory = 0.0;

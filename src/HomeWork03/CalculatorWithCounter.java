@@ -1,7 +1,7 @@
 package HomeWork03;
 
 public class CalculatorWithCounter implements ICalculator {
-    private long countOperation = 0L;
+    private long countOperation = 0L; // количество использований калькулятора
 
     private CalculatorWithOperator calculatorWithOperator;
     private CalculatorWithMathCopy calculatorWithMathCopy;
@@ -23,10 +23,18 @@ public class CalculatorWithCounter implements ICalculator {
         this(new CalculatorWithOperator());
     }
 
+    /**
+     * Метод, инкрементирующий количество использования калькулятора на 1.
+     * Вызывается при выполнении любой из операций.
+     */
     private void setCountOperation(){
         this.countOperation++;
     }
 
+    /**
+     * Метод для получения количество использований калькулятора
+     * @return значение - сколько раз использовался калькулятор
+     */
     public long getCountOperation(){
         return countOperation;
     }

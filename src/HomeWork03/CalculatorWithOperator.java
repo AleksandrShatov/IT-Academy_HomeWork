@@ -76,7 +76,7 @@ public class CalculatorWithOperator implements ICalculator {
      */
     public double division(double divisible, double divisor){
         if(divisor == 0.0){
-            return 0.0;
+            return 0.0; // Не правильно, но как заглушка от деления на 0!
         };
         return divisible / divisor;
     }
