@@ -1,6 +1,6 @@
 package HomeWork03;
 
-public class CalculatorWithMemory implements ICalculator {
+public class CalculatorWithMemory implements ICalculatorWithMemory {
     private double memory = 0.0;
 
     private ICalculator calculator;

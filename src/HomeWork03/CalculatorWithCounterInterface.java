@@ -1,6 +1,6 @@
 package HomeWork03;
 
-public class CalculatorWithCounterInterface implements ICalculator {
+public class CalculatorWithCounterInterface implements ICalculatorWithCounter {
     private long countOperation = 0L;
 
     private ICalculator calculator;

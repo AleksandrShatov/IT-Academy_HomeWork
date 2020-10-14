@@ -5,7 +5,6 @@ public class CalculatorWithMemoryMain {
         CalculatorWithMathExtends calcWithMath = new CalculatorWithMathExtends();
         CalculatorWithMemory calc = new CalculatorWithMemory(calcWithMath);
 
-        //TODO
         calc.division(28, 5);
         calc.power(calc.getMemory(), 2);
         calc.addition(4.1, calc.getMemory());
