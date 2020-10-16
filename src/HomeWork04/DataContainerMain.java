@@ -1,5 +1,7 @@
 package HomeWork04;
 
+import java.util.Arrays;
+
 public class DataContainerMain {
     public static void main(String[] args) {
         DataContainer<Object> myData = new DataContainer<>();
@@ -20,5 +22,20 @@ public class DataContainerMain {
         int z = myData.add(81);
         System.out.println("Массив заполненный с помощь ПРАВИЛЬНОГО метода");
         myData.print();
+        int k = myData.add(null);
+        System.out.println("k = " + k);
+        System.out.println("Массив заполненный с помощь ПРАВИЛЬНОГО метода");
+        myData.print();
+        // Получение элементов из массива
+        System.out.println(myData.get(1));
+        System.out.println(myData.get(-3));
+        System.out.println(myData.get(22));
+        System.out.println(myData.get(5));
+
+        Object[] copyData = myData.getItems();
+        System.out.println("Вывод копии хранилища: ");
+        System.out.println(Arrays.toString(copyData));
+
+
     }
 }
