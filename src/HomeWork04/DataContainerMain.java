@@ -1,11 +1,13 @@
 package HomeWork04;
 
+import java.sql.SQLOutput;
 import java.util.*;
 
 public class DataContainerMain {
     public static void main(String[] args) {
-        List<String> list = new ArrayList<>();
-        List<Double> doubleList = new LinkedList<>();
+
+        Integer i = 13;
+        float f = i.floatValue();
 
         Object[] objects = {};
         DataContainer<Object> myData = new DataContainer<>(objects);
@@ -17,25 +19,25 @@ public class DataContainerMain {
         DataContainer<Object> myStrings = new DataContainer<>(strings);
 
         // Заполнение с помощью тестового метода
-        int a = myData.addTest(123);
-        int b = myData.addTest(null);
-        int c = myData.addTest(23);
-        int d = myData.addTest(null);
+        myData.addTest(123);
+        myData.addTest(null);
+        myData.addTest(23);
+        myData.addTest(null);
         System.out.println("Массив заполненный с помощь ТЕСТОВОГО метода");
         myData.print();
         System.out.println("Печать с помощью переопределённого toString()");
         System.out.println(myData);
-        //
-        System.out.println(myData.get(1));
+        //TODO
+        //System.out.println(myData.get(1).toString());
 
         // Заполнение с помощью правильного метода
-        int x = myData.add(99);
+        myData.add(99);
         System.out.println("Массив заполненный с помощь ПРАВИЛЬНОГО метода");
         myData.print();
-        int y = myData.add(567);
+        myData.add(567);
         System.out.println("Массив заполненный с помощь ПРАВИЛЬНОГО метода");
         myData.print();
-        int z = myData.add(81);
+        myData.add(81);
         System.out.println("Массив заполненный с помощь ПРАВИЛЬНОГО метода");
         myData.print();
         int k = myData.add(null);
@@ -61,7 +63,7 @@ public class DataContainerMain {
         System.out.println(myStrings.toString());
 
         // Получение элементов из массива
-        System.out.println(myData.get(1));
+        System.out.println(myData.get(1).toString());
         System.out.println(myData.get(-3));
         System.out.println(myData.get(22));
         System.out.println(myData.get(5));
@@ -70,7 +72,7 @@ public class DataContainerMain {
         Object[] copyData = myData.getItems();
         DataContainer<Object> myData2 = new DataContainer<>(myData.getItems());
         System.out.println("Вывод копии хранилища: ");
-        System.out.println(myData2.get(2));
+        System.out.println(myData2.get(2).toString());
         System.out.println(Arrays.toString(copyData));
         System.out.println(myData2.toString());
         //
@@ -120,6 +122,18 @@ public class DataContainerMain {
         Object o13 = new Object();
         System.out.println(newData.delete(o13));
         System.out.println(newData);
+
+        // Тестирование статического метода сортировки
+        String[] names = {"Ярослав", "Никита", "Алексей", "Григорий"};
+        DataContainer<String> namesContainer = new DataContainer<>(names);
+        namesContainer.add("Дмитрий");
+        namesContainer.add("Тимофей");
+        namesContainer.add("Антон");
+        System.out.println("Контейнер имён до сортировки");
+        System.out.println(namesContainer.toString());
+        System.out.println("Статическая сортировка контейнера имён");
+        DataContainer.sort(namesContainer);
+        System.out.println(namesContainer.toString());
 
     }
 }
