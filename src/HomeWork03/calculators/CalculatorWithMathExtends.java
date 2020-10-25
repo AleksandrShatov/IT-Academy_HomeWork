@@ -1,6 +1,9 @@
-package HomeWork03;
+package HomeWork03.calculators;
 
-public class CalculatorWithMathExtends extends CalculatorWithOperator implements ICalculator {
+import HomeWork03.calculators.CalculatorWithOperator;
+import HomeWork03.calculators.ICalculator;
+
+public class CalculatorWithMathExtends extends CalculatorWithOperator {
 
     /**
      * Методя для возведения числа в целую степень
@@ -12,10 +15,6 @@ public class CalculatorWithMathExtends extends CalculatorWithOperator implements
         return Math.pow(base, (double) degree);
     }
 
-    public double power(int base, int degree) {
-        return power((double) base, degree);
-    }
-
     /**
      * Метод возвращает модуль входного числа
      * @param number ислодное число
@@ -23,10 +22,6 @@ public class CalculatorWithMathExtends extends CalculatorWithOperator implements
      */
     public double module(double number){
         return Math.abs(number);
-    }
-
-    public double module(int number){
-        return module((double) number);
     }
 
     /**
@@ -39,7 +34,4 @@ public class CalculatorWithMathExtends extends CalculatorWithOperator implements
         return Math.pow(number, (double) radical);
     }
 
-    public double root(int number, int radical){
-        return root((double) number, radical);
-    }
 }

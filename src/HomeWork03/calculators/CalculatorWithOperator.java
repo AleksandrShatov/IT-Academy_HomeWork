@@ -1,4 +1,6 @@
-package HomeWork03;
+package HomeWork03.calculators;
+
+import HomeWork03.calculators.ICalculator;
 
 public class CalculatorWithOperator implements ICalculator {
 
@@ -12,18 +14,6 @@ public class CalculatorWithOperator implements ICalculator {
         return add1 + add2;
     }
 
-    public double addition(int add1, double add2){
-        return addition((double) add1, add2);
-    }
-
-    public double addition(double add1, int add2){
-        return addition(add1, (double) add2);
-    }
-
-    public double addition(int add1, int add2){
-        return addition((double) add1, (double) add2);
-    }
-
     /**
      * Метод для вычесления разности двух чисел
      * @param dec уменьшаемое
@@ -34,18 +24,6 @@ public class CalculatorWithOperator implements ICalculator {
         return dec - sub;
     }
 
-    public double subtraction(int dec, double sub){
-        return subtraction((double) dec, sub);
-    }
-
-    public double subtraction(double dec, int sub){
-        return subtraction(dec, (double) sub);
-    }
-
-    public double subtraction(int dec, int sub){
-        return subtraction((double) dec, (double) sub);
-    }
-
     /**
      * Метод для вычесления произведения двух чисел
      * @param mul1 первый множитель
@@ -54,18 +32,6 @@ public class CalculatorWithOperator implements ICalculator {
      */
     public double multiplication(double mul1, double mul2){
         return mul1 * mul2;
-    }
-
-    public double multiplication(int mul1, double mul2){
-        return multiplication((double) mul1, mul2);
-    }
-
-    public double multiplication(double mul1, int mul2){
-        return multiplication(mul1, (double) mul2);
-    }
-
-    public double multiplication(int mul1, int mul2){
-        return multiplication((double) mul1, (double) mul2);
     }
 
     /**
@@ -79,18 +45,6 @@ public class CalculatorWithOperator implements ICalculator {
             return 0.0; // Не правильно, но как заглушка от деления на 0!
         };
         return divisible / divisor;
-    }
-
-    public double division(int divisible, double divisor){
-        return division((double) divisible, divisor);
-    }
-
-    public double division(double divisible, int divisor){
-        return division(divisible, (double) divisor);
-    }
-
-    public double division(int divisible, int divisor){
-        return division((double) divisible, (double) divisor);
     }
 
     /**
@@ -118,10 +72,6 @@ public class CalculatorWithOperator implements ICalculator {
         return result;
     }
 
-    public double power(int base, int degree) {
-        return power((double) base, degree);
-    }
-
     /**
      * Метод возвращает модуль входного числа
      * @param number ислодное число
@@ -135,10 +85,6 @@ public class CalculatorWithOperator implements ICalculator {
         }
     }
 
-    public double module(int number){
-        return module((double) number);
-    }
-
     /**
      * Методя для вычисления корня заданной степени
      * @param number число, корень которого нужно найти
@@ -149,7 +95,4 @@ public class CalculatorWithOperator implements ICalculator {
         return Math.pow(number, (double) radical);
     }
 
-    public double root(int number, int radical){
-        return root((double) number, radical);
-    }
 }

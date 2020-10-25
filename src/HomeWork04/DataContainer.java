@@ -218,7 +218,7 @@ public class DataContainer<T> {
     }
 
     // МЕТОД, ПЕЧАТАЮЩИЙ ВСЕ ОБЪЕКТЫ КОНТЕЙНЕРА
-    public void print() {
+    public void printAll() {
         boolean needComma = false;
         for (int i = 0; i < data.length; i++) {
             if (needComma){

@@ -1,5 +1,8 @@
 package HomeWork03;
 
+import HomeWork03.calculators.CalculatorWithMathExtends;
+import HomeWork03.calculators.CalculatorWithMemory;
+
 public class CalculatorWithMemoryMain {
     public static void main(String[] args) {
         CalculatorWithMathExtends calcWithMath = new CalculatorWithMathExtends();

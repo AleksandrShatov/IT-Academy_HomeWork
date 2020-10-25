@@ -1,5 +1,8 @@
 package HomeWork03;
 
+import HomeWork03.calculators.CalculatorWithCounter;
+import HomeWork03.calculators.CalculatorWithMathCopy;
+
 public class CalculatorWithCounterMain {
     public static void main(String[] args) {
         CalculatorWithCounter calc = new CalculatorWithCounter(new CalculatorWithMathCopy());

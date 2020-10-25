@@ -1,5 +1,8 @@
 package HomeWork03;
 
+import HomeWork03.calculators.CalculatorWithCounterInterface;
+import HomeWork03.calculators.CalculatorWithMathExtends;
+
 public class CalculatorWithCounterInterfaceMain {
     public static void main(String[] args) {
         CalculatorWithMathExtends calcWithMath = new CalculatorWithMathExtends();

@@ -1,18 +1,34 @@
 package HomeWork03;
 
+import HomeWork03.calculators.CalculatorWithCounterDecorator;
+import HomeWork03.calculators.CalculatorWithMathExtends;
+import HomeWork03.calculators.CalculatorWithMemoryDecorator;
+import HomeWork03.calculators.ICalculator;
+
 public class CalculatorDecoratorMain {
     public static void main(String[] args) {
 
-        CalculatorWithCounterDecorator mainCalculator = new CalculatorWithCounterDecorator(new CalculatorWithMemoryDecorator(new CalculatorWithMathExtends()));
+        ICalculator mainCalculator = new CalculatorWithCounterDecorator(new CalculatorWithMemoryDecorator(new CalculatorWithMathExtends()));
 
-//        mainCalculator.division(28, 5);
-//        mainCalculator.power(mainCalculator.getCalculator().getMemory(), 2);
-//        mainCalculator.addition(4.1, mainCalculator.getMemory());
-//        mainCalculator.addition(mainCalculator.getMemory(), mainCalculator.multiplication(15, 7));
-//
-//        System.out.println("Результат вычисления с помощью калькулятора декоратора: ");
-//        System.out.println("4,1 + 15 * 7 + (28 / 5) ^ 2 = " + mainCalculator.getMemory());
-//        System.out.println("Количество использований калькулятора = " + mainCalculator.getCountOperation());
+        System.out.println("Результат вычисления с помощью калькулятора декоратора: ");
+
+        print(mainCalculator);
 
     }
+
+    public static void print(ICalculator calculator){
+        calculator.division(28, 5);
+        if(calculator instanceof CalculatorWithCounterDecorator){
+            CalculatorWithCounterDecorator counterDecorator = (CalculatorWithCounterDecorator) calculator;
+            if(counterDecorator.getCalculator() instanceof CalculatorWithMemoryDecorator){
+                CalculatorWithMemoryDecorator memoryDecorator = (CalculatorWithMemoryDecorator) counterDecorator.getCalculator();
+                calculator.power(memoryDecorator.getMemory(), 2);
+                calculator.addition(4.1, memoryDecorator.getMemory());
+                calculator.addition(memoryDecorator.getMemory(), calculator.multiplication(15, 7));
+                System.out.println("4,1 + 15 * 7 + (28 / 5) ^ 2 = " + memoryDecorator.getMemory());
+            }
+            System.out.println("Количество использований калькулятора = " + counterDecorator.getCountOperation());
+        }
+    }
+
 }

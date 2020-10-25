@@ -1,6 +1,5 @@
 package HomeWork04;
 
-import java.sql.SQLOutput;
 import java.util.*;
 
 public class DataContainerMain {
@@ -9,7 +8,7 @@ public class DataContainerMain {
         Integer i = 13;
         float f = i.floatValue();
 
-        Object[] objects = {};
+        Object[] objects = {123, null, 23, null};
         DataContainer<Object> myData = new DataContainer<>(objects);
 
         Double[] numbersOfDouble = {};
@@ -18,13 +17,36 @@ public class DataContainerMain {
         String[] strings = {};
         DataContainer<Object> myStrings = new DataContainer<>(strings);
 
+        Comparator<String> comp1 = new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                return o1.length() - o2.length();
+            }
+        };
+
+        Comparator<String> comp2 = (o1, o2) -> o1.length() - o2.length();
+
+        Comparator<String> comp3 = Comparator.comparing(o -> o.length());
+
+        DataContainer<String> dataStrings = new DataContainer<>();
+        dataStrings.add("Follow me");
+        dataStrings.add("abc");
+        dataStrings.add("Hello");
+        dataStrings.add("Java");
+        System.out.println(dataStrings.toString());
+        dataStrings.sort(comp1);
+        System.out.println(dataStrings.toString());
+
+
+
+
         // Заполнение с помощью тестового метода
-        myData.addTest(123);
-        myData.addTest(null);
-        myData.addTest(23);
-        myData.addTest(null);
+//        myData.addTest(123);
+//        myData.addTest(null);
+//        myData.addTest(23);
+//        myData.addTest(null);
         System.out.println("Массив заполненный с помощь ТЕСТОВОГО метода");
-        myData.print();
+        myData.printAll();
         System.out.println("Печать с помощью переопределённого toString()");
         System.out.println(myData);
         //TODO
@@ -33,17 +55,17 @@ public class DataContainerMain {
         // Заполнение с помощью правильного метода
         myData.add(99);
         System.out.println("Массив заполненный с помощь ПРАВИЛЬНОГО метода");
-        myData.print();
+        myData.printAll();
         myData.add(567);
         System.out.println("Массив заполненный с помощь ПРАВИЛЬНОГО метода");
-        myData.print();
+        myData.printAll();
         myData.add(81);
         System.out.println("Массив заполненный с помощь ПРАВИЛЬНОГО метода");
-        myData.print();
+        myData.printAll();
         int k = myData.add(null);
         System.out.println("k = " + k);
         System.out.println("Массив заполненный с помощь ПРАВИЛЬНОГО метода");
-        myData.print();
+        myData.printAll();
 
         // Заполнение myStrings
         myStrings.add("Whiskey");
@@ -57,7 +79,7 @@ public class DataContainerMain {
         DataComparator<Object> dataComparator = new DataComparator<>();
         myData.sort(dataComparator);
         System.out.println("Массив после сортировки");
-        myData.print();
+        myData.printAll();
         System.out.println("Контейнера myString после сортировки");
         myStrings.sort(dataComparator);
         System.out.println(myStrings.toString());
@@ -90,11 +112,11 @@ public class DataContainerMain {
         //
         System.out.println("Тест для метода delete(T item):");
         System.out.println(myData.delete((Object) 99));
-        myData.print();
+        myData.printAll();
         System.out.println(myData.delete(new Integer(567)));
-        myData.print();
+        myData.printAll();
         System.out.println(myData.delete(new Integer(333)));
-        myData.print();
+        myData.printAll();
 
         Object[] newObjects = {};
         DataContainer<Object> newData = new DataContainer<>(newObjects);
@@ -115,7 +137,7 @@ public class DataContainerMain {
         System.out.println("Новый контейнер");
         System.out.println(newData);
         System.out.println(newData.delete(o2));
-        newData.print();
+        newData.printAll();
         System.out.println(newData);
         System.out.println(newData.delete(o7));
         System.out.println(newData);

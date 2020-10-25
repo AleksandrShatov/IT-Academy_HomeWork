@@ -1,5 +1,7 @@
 package HomeWork03;
 
+import HomeWork03.calculators.CalculatorWithOperator;
+
 public class CalculatorWithOperatorMain {
     public static void main(String[] args) {
         CalculatorWithOperator calc = new CalculatorWithOperator();

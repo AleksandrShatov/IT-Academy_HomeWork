@@ -1,5 +1,7 @@
 package HomeWork03;
 
+import HomeWork03.calculators.CalculatorWithMathExtends;
+
 public class CalculatorWithMathExtendsMain {
     public static void main(String[] args) {
         CalculatorWithMathExtends calc = new CalculatorWithMathExtends();
