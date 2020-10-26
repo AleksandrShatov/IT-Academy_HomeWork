@@ -2,7 +2,7 @@ package HomeWork04;
 
 import java.util.Comparator;
 
-public class DataComparator<T> implements Comparator<T> {
+public class DataComparator<T extends Comparable> implements Comparator<T> {
 
     @Override
     public int compare(T o1, T o2) {

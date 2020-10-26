@@ -1,14 +1,16 @@
 package HomeWork04;
 
+import HomeWork02.SortingWithGenerics;
+
 import java.lang.reflect.Array;
 import java.util.Arrays;
 import java.util.Comparator;
 
 /**
- *
- * @param <T>
+ * Класс контейнер, для хранения объектов
+ * @param <T> Тип объектов, хранящихся в контейнере
  */
-public class DataContainer<T> {
+public class DataContainer<T extends Comparable> {
     /**
      * Размер контейнера по умолчанию
      */
@@ -20,28 +22,32 @@ public class DataContainer<T> {
     private T[] data;
 
     /**
-     *
+     * Конструктор по умолчанию, без параметров
      */
     public DataContainer() {
-        this.data = (T[]) new Object[DEFAULT_SIZE];
+        this.data = (T[]) Array.newInstance(Comparable.class, DEFAULT_SIZE);
     }
 
+//    public DataContainer() {                          // -------------------ВОЗМОЖНА ТАКАЯ ПРОБЛЕМА------------------------------
+//        this.data = (T[]) new Object[DEFAULT_SIZE];   // class [Ljava.lang.Object; cannot be cast to class [Ljava.lang.Comparable
+//    }                                                 // ------------------------------------------------------------------------
+
     /**
-     *
-     * @param data
+     * Конструктор, принимающий на вход один параметр в виде контейнера объектов
+     * @param data контейнер объектов
      */
     public DataContainer(T[] data) {
         this.data = data;
     }
 
     /**
-     *
-     * @param type
-     * @param elementsCounter
+     * Конструктор задающий тип контейнера и количество элементов для него
+     * @param type тип элементов для контейнера
+     * @param elementsCounter количество элементов в контейнере
      */
     public DataContainer(Class<T> type, int elementsCounter) {
         if(elementsCounter <= 0 || type == null){
-            this.data = (T[]) new Object[DEFAULT_SIZE];
+            this.data = (T[]) Array.newInstance(Comparable.class, DEFAULT_SIZE);
         } else {
             this.data = (T[]) Array.newInstance(type, elementsCounter);
         }
@@ -123,22 +129,11 @@ public class DataContainer<T> {
     }
 
     /**
-     * Метод для сортировки объектов контейнера
+     * Метод для сортировки объектов данного контейнера, с помощью заданного компаратора
      * @param comparator - объект с реализацией сравнения объектов контейнера
      */
     public void sort(Comparator<? super T> comparator) {
-        boolean isSwap = true;
-        while(isSwap) {
-            isSwap = false;
-            for (int i = 0; i < data.length -1; i++) {
-                if(comparator.compare(data[i], data[i + 1]) > 0) {
-                    T tmp = data[i];
-                    data[i] = data[i + 1];
-                    data[i + 1] = tmp;
-                    isSwap = true;
-                }
-            }
-        }
+        SortingWithGenerics.cocktailSort(data, comparator);
     }
 
     /**
@@ -166,11 +161,11 @@ public class DataContainer<T> {
     }
 
     /**
-     *
-     * @param container
-     * @param <T>
+     * Статический Метод для сортировки объектов заданного (входящего) контейнера
+     * @param container заданный контейнер, элементы которого необходимо отсортировать
+     * @param <T> тип объектов контейнера
      */
-    public static <T extends Comparable<T>> void sort(DataContainer<T> container) {
+    public static <T extends Comparable<T>> void sort(DataContainer<T> container) { // TODO Сделать описание
         int length = container.getItems().length;
         boolean isSwap = true; //
         T tmp1; //
@@ -198,26 +193,22 @@ public class DataContainer<T> {
     }
 
     /**
-     *
-     * @param container
-     * @param comparator
+     * Статический Метод для сортировки объектов заданного (входящего) контейнера с помощью заданного компаратора
+     * @param container заданный контейнер, элементы которого необходимо отсортировать
+     * @param comparator - объект с реализацией сравнения объектов контейнера
+     * @param <T> тип объектов контейнера
      */
-    public static <T> void sort(DataContainer<?> container, Comparator<?> comparator) {
-//        boolean isSwap = true;
-//        while(isSwap) {
-//            isSwap = false;
-//            for (int i = 0; i < container.getItems().length - 1; i++) {
-//                if(comparator.compare(container.get(i), container.get(i + 1)) > 0) {
-//                    T tmp = data[i];
-//                    data[i] = data[i + 1];
-//                    data[i + 1] = tmp;
-//                    isSwap = true;
-//                }
-//            }
-//        }
+    public static <T extends Comparable<T>> void sort(DataContainer<T> container, Comparator<? super T> comparator) {
+        SortingWithGenerics.cocktailSort(container.getItems(), comparator);
     }
 
-    // МЕТОД, ПЕЧАТАЮЩИЙ ВСЕ ОБЪЕКТЫ КОНТЕЙНЕРА
+    /**************************
+    * МЕТОДЫ ДЛЯ ТЕСТИРОВАНИЯ *
+    **************************/
+
+    /**
+     * Метод, печатающий все объекты контейнера (включая null)
+     */
     public void printAll() {
         boolean needComma = false;
         for (int i = 0; i < data.length; i++) {
@@ -235,7 +226,11 @@ public class DataContainer<T> {
         System.out.println("");
     }
 
-    // ТЕСТОВЫЙ МЕТОД ДЛЯ ФОРМИРОВАНИЯ ТЕСТОВОГО КОНТЕЙНЕРА
+    /**
+     * Метод, добавляющий элементы в контейнер, включая и null
+     * @param item добавляемый объект
+     * @return индекс позиции, в которую был добавлен объект
+     */
     public int addTest(T item) {
         T[] copyData = Arrays.copyOf(data, data.length + 1);
         data = copyData;
