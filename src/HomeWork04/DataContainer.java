@@ -56,7 +56,7 @@ public class DataContainer<T extends Comparable> {
     /**
      * Метод для добавления объектов в контейнер
      * @param item добавляемый объект
-     * @return индекс позиции, в которую был добавлен объект
+     * @return индекс позиции, в которую был добавлен объект, либо -1 если добавить данные не удалось
      */
     public int add(T item) {
         if(item == null){
