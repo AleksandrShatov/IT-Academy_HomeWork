@@ -1,48 +1,35 @@
 package HomeWork05;
 
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.Reader;
-import java.util.*;
-
 public class WarAndPeaceMain {
     public static void main(String[] args) {
 
-        final String book = "Война и мир_книга.txt";
-        Set<String> uniqueWords = new HashSet<>();
-        List<Character> characters = new ArrayList<>();
-        long symbolsCount = 0L;
-
         long startTime = System.currentTimeMillis();
-        long stopTime = 0L;
-        try(Reader reader = new FileReader(book)) {
-            int read;
-            while((read = reader.read()) > -1){
-                symbolsCount++;
-                characters.add((char) read);
-            }
 
-            stopTime = System.currentTimeMillis();
-            reader.close();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        final String textAddr = "Война и мир_книга.txt";
 
-        System.out.println("Time is: " + (stopTime - startTime));
-        System.out.println("symbolsCount = " + symbolsCount);
+        StringAnalyzer stringAnalyzer = new StringAnalyzer(textAddr);
+        stringAnalyzer.analyze();
+        stringAnalyzer.printInfo();
 
-        Iterator<Character> iterator = characters.listIterator();
+        System.out.println("Количество всех слов в строке: " + stringAnalyzer.getWordsCount());
 
-        for (int i = 0; i < 20; i++) {
-            if(iterator.hasNext()){
-                char ch = iterator.next();
-                System.out.println(ch);
-            }
+        stringAnalyzer.printHowMany("война");
+        stringAnalyzer.printHowMany("Война");
+        stringAnalyzer.printHowMany("sdfgcsdg");
+        stringAnalyzer.printHowMany("дело");
+        stringAnalyzer.printHowMany("и");
+        stringAnalyzer.printHowMany("абракадабра");
+        stringAnalyzer.printHowMany("три");
+        stringAnalyzer.printHowMany("После");
+        stringAnalyzer.printHowMany("после");
+        stringAnalyzer.printHowMany("фываertewrt");
+        stringAnalyzer.printHowMany("Он");
+        stringAnalyzer.printHowMany("он");
 
-        }
+        long stopTime = System.currentTimeMillis();
+
+        System.out.println("\nTime is: " + (stopTime - startTime) + " ms");
+
 
     }
 }
