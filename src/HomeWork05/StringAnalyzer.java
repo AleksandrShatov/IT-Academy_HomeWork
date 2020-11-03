@@ -33,24 +33,33 @@ public class StringAnalyzer {
         return isValidCharacter((char) ch);
     }
 
-    protected boolean isValidCharacter(char ch) {
+    public static boolean isValidCharacter(char ch) {
         boolean cond1 = (ch >= 'A' && ch <= 'Z');
         boolean cond2 = (ch >= 'a' && ch <= 'z');
         boolean cond3 = (ch >= 'А' && ch <= 'Я');
         boolean cond4 = (ch >= 'а' && ch <= 'я');
         boolean cond5 = (ch == 'Ё' || ch == 'ё');
-        if(cond1 || cond2 || cond3 || cond4 || cond5) {
+        boolean cond6 = (ch == '-');
+        if(cond1 || cond2 || cond3 || cond4 || cond5 || cond6) {
             return true;
         }
         return false;
     }
 
+    public String readFile(String fileName) {
+
+
+
+        return "";
+    }
+
     public void analyze() {
         try(Reader reader = new FileReader(string)) {
-            boolean startWord = false; // Начало составления слова
-            boolean endWord = false;   // Конец составления слова
+            boolean startWord = false; // Флаг начала составления слова
+            boolean endWord = false;   // Флаг конца составления слова
             StringBuilder word = null; // Составляемое слово
             int read;
+            /* Цикл чтения строки */
             while((read = reader.read()) > -1){
                 char readableChar = (char) read; // Читаемый в данный момент символ
                 this.charsCount++;
