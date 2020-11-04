@@ -94,11 +94,10 @@ public class StringAnalyzer {
                 }
             }
             reader.close();
-        } catch (
-                FileNotFoundException e) {
+        } catch (FileNotFoundException e) {
+            System.out.println("Файл не найден!");
             e.printStackTrace();
-        } catch (
-                IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

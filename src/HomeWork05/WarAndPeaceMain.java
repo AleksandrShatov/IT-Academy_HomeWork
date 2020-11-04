@@ -22,10 +22,8 @@ public class WarAndPeaceMain {
 
         // 2-й способ чтения из файла в строку
         File file = new File(fileName);
-
         try {
             BufferedReader reader = new BufferedReader(new FileReader(file));
-
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -43,8 +41,6 @@ public class WarAndPeaceMain {
 
         System.out.println("Количество всех слов в строке: " + stringAnalyzer.getWordsCount());
 
-        stringAnalyzer.printHowMany("Во-первых");
-        stringAnalyzer.printHowMany("во-первых");
         stringAnalyzer.printHowMany("война");
         stringAnalyzer.printHowMany("и");
         stringAnalyzer.printHowMany("мир");
@@ -55,33 +51,19 @@ public class WarAndPeaceMain {
         stringAnalyzer.printHowMany("дело");
         stringAnalyzer.printHowMany("и");
         stringAnalyzer.printHowMany("абракадабра");
-        stringAnalyzer.printHowMany("три");
-        stringAnalyzer.printHowMany("После");
-        stringAnalyzer.printHowMany("после");
-        stringAnalyzer.printHowMany("фываertewrt");
-        stringAnalyzer.printHowMany("Он");
-        stringAnalyzer.printHowMany("он");
-        stringAnalyzer.printHowMany("кто-то");
-        stringAnalyzer.printHowMany("Кто-то");
-        stringAnalyzer.printHowMany("что-то");
-        stringAnalyzer.printHowMany("Что-то");
 
-        EasySearch es = new EasySearch();
+        EasySearchDecorator easySearchDecor = new EasySearchDecorator(new EasySearch());
 
         Set<String> wordsForSearching = new HashSet<>();
         wordsForSearching.add("война");
         wordsForSearching.add("и");
         wordsForSearching.add("мир");
-        wordsForSearching.add("во-первых");
-        wordsForSearching.add("кто-то");
-        wordsForSearching.add("что-то");
 
         Iterator<String> iterator = wordsForSearching.iterator();
 
-
         while(iterator.hasNext()) {
             String item = iterator.next();
-            System.out.println("Слово '" + item + "' встречается " + es.search(string.toLowerCase(), item) + " раз.");
+            System.out.println("Слово '" + item + "' встречается " + easySearchDecor.search(string, item) + " раз.");
         }
 
         long stopTime = System.currentTimeMillis();
