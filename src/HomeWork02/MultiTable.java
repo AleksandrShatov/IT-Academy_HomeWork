@@ -4,6 +4,13 @@ import java.util.Scanner;
 
 public class MultiTable {
     public static void main(String[] args) {
+        printMultiTable();
+    }
+
+    /**
+     * Метод, печатающий таблицу умножения2
+     */
+    public static void printMultiTable() {
         Scanner scanner = new Scanner(System.in);
         System.out.print("С какого числа начинаем таблицу умноежния?: ");
         int startNumber = scanner.nextInt();

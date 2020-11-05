@@ -2,6 +2,13 @@ package HomeWork02;
 
 public class HW02Task01_5 {
     public static void main(String[] args) {
+        printMultiTable();
+    }
+
+    /**
+     * Метод, печатающий стандартную таблицу умножения
+     */
+    public static void printMultiTable() {
         printHeader();
         printPartOfTable(2, 5);
         printLine();
