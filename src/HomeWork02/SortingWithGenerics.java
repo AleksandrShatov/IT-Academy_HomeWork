@@ -68,15 +68,19 @@ public class SortingWithGenerics<N> {
         while (isSwapped) {
             isSwapped = false;
             for (int i = 0; i < extArr.length - 1; i++) {
-                if(direction) {
-                    if(extArr[i].compareTo(extArr[i + 1]) == 1) {
-                        swapElements(extArr, i);
-                        isSwapped = true;
-                    }
+                if(extArr[i].compareTo(extArr[i + 1]) == 0) {
+                    continue;
                 } else {
-                    if(extArr[i].compareTo(extArr[i + 1]) == -1) {
-                        swapElements(extArr, i);
-                        isSwapped = true;
+                    if(direction) {
+                        if(extArr[i].compareTo(extArr[i + 1]) > 0) {
+                            swapElements(extArr, i);
+                            isSwapped = true;
+                        }
+                    } else {
+                        if(extArr[i].compareTo(extArr[i + 1]) < 0) {
+                            swapElements(extArr, i);
+                            isSwapped = true;
+                        }
                     }
                 }
             }
@@ -96,16 +100,22 @@ public class SortingWithGenerics<N> {
         while (isSwapped) {
             isSwapped = false;
             for (int i = leftIndex; i <= rightIndex; i++) {
-                if(extArr[i].compareTo(extArr[i + 1]) == 1) {
+                if(extArr[i].compareTo(extArr[i + 1]) > 0) {
                     swapElements(extArr, i);
                     isSwapped = true;
+                }
+                if(extArr[i].compareTo(extArr[i + 1]) == 0) {
+                    continue;
                 }
             }
             leftIndex++;
             for (int j = rightIndex; j >= leftIndex; j--) {
-                if(extArr[j].compareTo(extArr[j - 1]) == -1) {
+                if(extArr[j].compareTo(extArr[j - 1]) < 0) {
                     swapElements(extArr, j - 1);
                     isSwapped = true;
+                }
+                if(extArr[j].compareTo(extArr[j + 1]) == 0) {
+                    continue;
                 }
             }
             rightIndex--;
@@ -126,16 +136,22 @@ public class SortingWithGenerics<N> {
         while (isSwapped) {
             isSwapped = false;
             for (int i = leftIndex; i <= rightIndex; i++) {
-                if(comparator.compare(extArr[i], extArr[i + 1]) == 1) {
+                if(comparator.compare(extArr[i], extArr[i + 1]) > 0) {
                     swapElements(extArr, i);
                     isSwapped = true;
+                }
+                if(comparator.compare(extArr[i], extArr[i + 1]) == 0) {
+                    continue;
                 }
             }
             leftIndex++;
             for (int j = rightIndex; j >= leftIndex; j--) {
-                if(comparator.compare(extArr[j], extArr[j - 1]) == -1) {
+                if(comparator.compare(extArr[j], extArr[j - 1]) < 0) {
                     swapElements(extArr, j - 1);
                     isSwapped = true;
+                }
+                if(comparator.compare(extArr[j], extArr[j - 1]) == 0) {
+                    continue;
                 }
             }
             rightIndex--;
