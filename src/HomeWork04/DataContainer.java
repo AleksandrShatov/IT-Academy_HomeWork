@@ -10,7 +10,7 @@ import java.util.Comparator;
  * Класс контейнер, для хранения объектов
  * @param <T> Тип объектов, хранящихся в контейнере
  */
-public class DataContainer<T extends Comparable> {
+public class DataContainer<T> {
     /**
      * Размер контейнера по умолчанию
      */
@@ -25,8 +25,14 @@ public class DataContainer<T extends Comparable> {
      * Конструктор по умолчанию, без параметров
      */
     public DataContainer() {
-        this.data = (T[]) Array.newInstance(Comparable.class, DEFAULT_SIZE);
+        this.data = (T[]) Array.newInstance(Object.class, DEFAULT_SIZE);
     }
+
+    // TODO
+//    public DataContainer() {
+//        Class<T> clazz = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+//        data = (T[]) Array.newInstance(clazz, 0);
+//    }
 
 //    public DataContainer() {                          // -------------------ВОЗМОЖНА ТАКАЯ ПРОБЛЕМА------------------------------
 //        this.data = (T[]) new Object[DEFAULT_SIZE];   // class [Ljava.lang.Object; cannot be cast to class [Ljava.lang.Comparable
@@ -47,7 +53,7 @@ public class DataContainer<T extends Comparable> {
      */
     public DataContainer(Class<T> type, int elementsCounter) {
         if(elementsCounter <= 0 || type == null){
-            this.data = (T[]) Array.newInstance(Comparable.class, DEFAULT_SIZE);
+            this.data = (T[]) Array.newInstance(Object.class, DEFAULT_SIZE);
         } else {
             this.data = (T[]) Array.newInstance(type, elementsCounter);
         }
@@ -137,59 +143,12 @@ public class DataContainer<T extends Comparable> {
     }
 
     /**
-     * Метод, преобразующий содержимое контейнера в строку без учёта объектов null
-     * @return  String - перечень объектов контейнера
-     */
-    @Override
-    public String toString() {
-        String result= "[";
-        boolean needComma = false;
-        for (T item : data) {
-            if(item != null) {
-                if(needComma) {
-                    result += "; ";
-                } else{
-                    needComma = true;
-                }
-                result += String.valueOf(item);
-            } else{
-                continue;
-            }
-        }
-        result += "]";
-        return result;
-    }
-
-    /**
      * Статический Метод для сортировки объектов заданного (входящего) контейнера
      * @param container заданный контейнер, элементы которого необходимо отсортировать
      * @param <T> тип объектов контейнера
      */
     public static <T extends Comparable<T>> void sort(DataContainer<T> container) { // TODO Сделать описание
-        int length = container.getItems().length;
-        boolean isSwap = true; //
-        T tmp1; //
-        T tmp2; //
-        T[] partOfContainer; //
-        while(isSwap) {
-            isSwap = false;
-            for (int i = 0; i < length - 1; i++) {
-                if(container.get(i).compareTo(container.get(i + 1)) > 0) {
-                    tmp1 = container.get(i);
-                    tmp2 = container.get(i + 1);
-                    partOfContainer = Arrays.copyOfRange(container.getItems(), i + 2, length);
-                    for (int j = 1; j <= partOfContainer.length + 2; j++) {
-                        container.delete(i);
-                    }
-                    container.add(tmp2);
-                    container.add(tmp1);
-                    for (int j = 0; j < partOfContainer.length; j++) {
-                        container.add(partOfContainer[j]);
-                    }
-                    isSwap = true;
-                }
-            }
-        }
+        SortingWithGenerics.bubbleSort(container.getItems(), true);
     }
 
     /**
@@ -198,8 +157,33 @@ public class DataContainer<T extends Comparable> {
      * @param comparator - объект с реализацией сравнения объектов контейнера
      * @param <T> тип объектов контейнера
      */
-    public static <T extends Comparable<T>> void sort(DataContainer<T> container, Comparator<? super T> comparator) {
+    public static <T> void sort(DataContainer<T> container, Comparator<? super T> comparator) {
         SortingWithGenerics.cocktailSort(container.getItems(), comparator);
+    }
+
+    /**
+     * Метод, преобразующий содержимое контейнера в строку без учёта объектов null
+     * @return  String - перечень объектов контейнера
+     */
+    @Override
+    public String toString() {
+        StringBuilder builder = new StringBuilder();
+        builder.append('[');
+        boolean needComma = false;
+        for (T item : data) {
+            if(item != null) {
+                if(needComma) {
+                    builder.append("; ");
+                } else{
+                    needComma = true;
+                }
+                builder.append(item);
+            } else{
+                continue;
+            }
+        }
+        builder.append(']');
+        return builder.toString();
     }
 
     /**************************
