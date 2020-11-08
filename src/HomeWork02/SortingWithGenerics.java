@@ -2,7 +2,59 @@ package HomeWork02;
 
 import java.util.Comparator;
 
-public class SortingWithGenerics<N extends Comparable> {
+public class SortingWithGenerics<N> {
+
+    /**
+     * Метод для пузыроковой сортировки примитива int с помощью сортировки по умолчанию
+     * @param extArr исходный массив для сортировки
+     * @param direction направление сортировки: true - по возрастанию, false - по убыванию
+     */
+    public static void bubbleSort(int[] extArr, boolean direction){
+        Integer[] intArr = new Integer[extArr.length];
+        for (int i = 0; i < extArr.length; i++) {
+            intArr[i] = extArr[i];
+        }
+        bubbleSort(intArr, direction);
+        for (int i = 0; i < intArr.length; i++) {
+            extArr[i] = intArr[i];
+        }
+    }
+
+    /**
+     * Метод для шейкерной сортировки примитива int с помощью сортировки по умолчанию
+     * @param extArr исходный массив для сортировки
+     */
+    public static void cocktailSort(int[] extArr){
+        Integer[] intArr = new Integer[extArr.length];
+        for (int i = 0; i < extArr.length; i++) {
+            intArr[i] = extArr[i];
+        }
+        cocktailSort(intArr, new Comparator<Integer>() {
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                return o1.compareTo(o2);
+            }
+        });
+        for (int i = 0; i < intArr.length; i++) {
+            extArr[i] = intArr[i];
+        }
+    }
+
+    /**
+     * Метод для шейкерной сортировки примитива int с помощью заданного компаратора
+     * @param extArr исходный массив для сортировки
+     * @param comparator компаратор для сравнения элементов массива
+     */
+    public static void cocktailSort(int[] extArr, Comparator<Integer> comparator){ //TODO
+        Integer[] intArr = new Integer[extArr.length];
+        for (int i = 0; i < extArr.length; i++) {
+            intArr[i] = extArr[i];
+        }
+        cocktailSort(intArr, comparator);
+        for (int i = 0; i < intArr.length; i++) {
+            extArr[i] = intArr[i];
+        }
+    }
 
     /**
      * Метод для пузыроковой сортировки с помощью сортировки по умолчанию
@@ -10,7 +62,7 @@ public class SortingWithGenerics<N extends Comparable> {
      * @param direction направление сортировки: true - по возрастанию, false - по убыванию
      * @param <N> тип элементов массива
      */
-    public static <N extends Comparable> void bubbleSort(N[] extArr, boolean direction){
+    public static <N extends Comparable<N>> void bubbleSort(N[] extArr, boolean direction){
         // Переменная для отслеживания была ли перемена местами элементов массива
         boolean isSwapped = true;
         while (isSwapped) {
@@ -36,7 +88,7 @@ public class SortingWithGenerics<N extends Comparable> {
      * @param extArr исходный массив для сортировки
      * @param <N> тип элементов массива
      */
-    public static <N extends Comparable> void cocktailSort(N[] extArr){
+    public static <N extends Comparable<N>> void cocktailSort(N[] extArr){
         // Переменная для отслеживания была ли перемена местами элементов массива
         boolean isSwapped = true;
         int leftIndex = 0;
@@ -66,7 +118,7 @@ public class SortingWithGenerics<N extends Comparable> {
      * @param comparator компаратор для сравнения элементов массива
      * @param <N> тип элементов массива
      */
-    public static <N extends Comparable> void cocktailSort(N[] extArr, Comparator<? super N> comparator){
+    public static <N> void cocktailSort(N[] extArr, Comparator<? super N> comparator){
         // Переменная для отслеживания была ли перемена местами элементов массива
         boolean isSwapped = true;
         int leftIndex = 0;
@@ -96,7 +148,7 @@ public class SortingWithGenerics<N extends Comparable> {
      * @param i индекс элемента
      * @param <N> тип элементов массива
      */
-    public static <N extends Comparable> void swapElements(N[] arr, int i){
+    public static <N> void swapElements(N[] arr, int i){
         if(i >= 0 && i < arr.length - 1) {
             N tmp = arr[i];
             arr[i] = arr[i + 1];
