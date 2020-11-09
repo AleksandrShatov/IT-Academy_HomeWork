@@ -51,6 +51,8 @@ public class WarAndPeaceMain {
         stringAnalyzer.printHowMany("дело");
         stringAnalyzer.printHowMany("и");
         stringAnalyzer.printHowMany("абракадабра");
+        stringAnalyzer.printHowMany("кто-то");
+        stringAnalyzer.printHowMany("Кто-то");
 
         EasySearchDecorator easySearchDecor = new EasySearchDecorator(new EasySearch());
 
@@ -58,13 +60,20 @@ public class WarAndPeaceMain {
         wordsForSearching.add("война");
         wordsForSearching.add("и");
         wordsForSearching.add("мир");
+        wordsForSearching.add("кто-то");
 
         Iterator<String> iterator = wordsForSearching.iterator();
 
-        while(iterator.hasNext()) {
-            String item = iterator.next();
-            System.out.println("Слово '" + item + "' встречается " + easySearchDecor.search(string, item) + " раз.");
+        if(string == null) {
+            System.out.println("Строка не найдена!");
+        } else {
+            while(iterator.hasNext()) {
+                String item = iterator.next();
+                System.out.println("Слово '" + item + "' встречается " + easySearchDecor.search(string, item) + " раз.");
+            }
         }
+
+        System.out.println("Количество уникальных слов в книге (через set): " + stringAnalyzer.getUniqueWordsCount());
 
         long stopTime = System.currentTimeMillis();
 

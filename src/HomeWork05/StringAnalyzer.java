@@ -14,6 +14,8 @@ public class StringAnalyzer {
 
     private long wordsCount = 0L;
 
+    private long uniqueWordsCount = 0L;
+
     private List<Character> characters = new ArrayList<>();
 
     private Map<String, Integer> words = new HashMap<>();
@@ -28,6 +30,9 @@ public class StringAnalyzer {
         return this.charsCount;
     }
 
+    public long getUniqueWordsCount() {
+        return this.uniqueWordsCount;
+    }
 
     public boolean isValidCharacter(int ch) {
         return isValidCharacter((char) ch);
@@ -46,8 +51,20 @@ public class StringAnalyzer {
         return false;
     }
 
-    public String readFile(String fileName) {
+    public static boolean isValidDashInWord(String word) {
+        if(word.length() <= 0) {
+            return false;
+        }
+        int firstDashIndex = word.indexOf('-');
+        char lastChar = word.charAt(word.length() - 1);
+        if(firstDashIndex == 0 || lastChar == '-') {
+            return false;
+        }
+        return true;
+    }
 
+    // TODO
+    public String readFile(String fileName) {
 
 
         return "";
@@ -83,14 +100,19 @@ public class StringAnalyzer {
                 }
                 /* */
                 if(endWord && (word != null)) {
-                    if(words.containsKey(word.toString())) {
-                        int value = words.get(word.toString());
-                        words.remove(word.toString());
-                        words.put(word.toString(), ++value);
+                    if(isValidDashInWord(word.toString())) {
+                        uniqueWords.add(word.toString());
+                        if(words.containsKey(word.toString())) {
+                            int value = words.get(word.toString());
+                            words.remove(word.toString());
+                            words.put(word.toString(), ++value);
+                        } else {
+                            words.put(word.toString(), 1);
+                        }
+                        word = null;
                     } else {
-                        words.put(word.toString(), 1);
+                        word = null;
                     }
-                    word = null;
                 }
             }
             reader.close();
@@ -99,6 +121,19 @@ public class StringAnalyzer {
             e.printStackTrace();
         } catch (IOException e) {
             e.printStackTrace();
+        }
+        this.uniqueWordsCount = uniqueWords.size();
+    }
+
+    public void printCommonWords(int amountUniqueWords) {
+        int maxAmountForPrinting = 0;
+        int amount = 0;
+        int maxAmount = 0;
+        while(amount < amountUniqueWords) {
+            // TODO поиск в map часто встречаемого слова
+
+
+            amount++;
         }
     }
 
