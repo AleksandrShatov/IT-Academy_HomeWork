@@ -53,6 +53,9 @@ public class WarAndPeaceMain {
         stringAnalyzer.printHowMany("абракадабра");
         stringAnalyzer.printHowMany("кто-то");
         stringAnalyzer.printHowMany("Кто-то");
+        stringAnalyzer.printHowMany("-");
+        stringAnalyzer.printHowMany("арп");
+        stringAnalyzer.printHowMany("дор");
 
         EasySearchDecorator easySearchDecor = new EasySearchDecorator(new EasySearch());
 
@@ -61,6 +64,9 @@ public class WarAndPeaceMain {
         wordsForSearching.add("и");
         wordsForSearching.add("мир");
         wordsForSearching.add("кто-то");
+        wordsForSearching.add("-");
+        wordsForSearching.add("арп");
+        wordsForSearching.add("дор");
 
         Iterator<String> iterator = wordsForSearching.iterator();
 

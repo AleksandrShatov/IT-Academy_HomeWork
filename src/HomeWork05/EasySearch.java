@@ -2,9 +2,20 @@ package HomeWork05;
 
 public class EasySearch implements ISearchEngine {
 
+    /**
+     * Метод, который осуществляет поиск заданной строки word в строке text
+     * и возвращающий количество раз, которое оно встречаетмя
+     * @param text заданная строка для поиска
+     * @param word строка в которой ищем
+     * @return количество раз, которое строка text встречается в строке word
+     */
     @Override
     public long search(String text, String word) {
         long count = 0L;
+        // TODO - нужна ли проверка соседних символов, что бы не находило часть слова???
+//        if(!StringAnalyzer.isValidDashInWord(word)) {
+//            return count;
+//        }
         StringBuilder builder = new StringBuilder(text);
         boolean isMatchFound = false;
         boolean beforeWord = false;

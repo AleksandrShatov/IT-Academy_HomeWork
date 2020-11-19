@@ -6,38 +6,86 @@ import java.io.IOException;
 import java.io.Reader;
 import java.util.*;
 
+/**
+ * Класс, позволяющий найти все слова в заданной строке
+ */
 public class StringAnalyzer {
 
+    /**
+     * Заданная строка, в которой осуществляется поиск
+     */
     private final String string;
 
+    /**
+     * Количество всех символов в заданной строке
+     */
     private long charsCount = 0L;
 
+    /**
+     * Количество всех слов в заданной строке
+     */
     private long wordsCount = 0L;
 
+    /**
+     * Количество уникальных слов в заданной строке
+     */
     private long uniqueWordsCount = 0L;
 
+    /**
+     *
+     */
     private List<Character> characters = new ArrayList<>();
 
+    /**
+     * Карта, которая хранит все найденные слова
+     * Ключём(K) являетмя уникальное слово, найденное в заданной строке
+     * Значением(V) являетмя количество раз, которое данное слово встречается в заданной строке
+     */
     private Map<String, Integer> words = new HashMap<>();
 
+    /**
+     * Набор, содержащий только уникальные слова, найденные в заданной строке
+     */
     private Set<String> uniqueWords = new HashSet<>();
 
+    /**
+     * Конструктор, принимающий строку, в которой необходимо найти слова
+     * @param string заданная строка, в которой осуществляется поиск
+     */
     public StringAnalyzer(String string) {
         this.string = string;
     }
 
+    /**
+     * Метод, возвращающий количество всех символов в заданной строке
+     * @return charsCount - количество всех символов в заданной строке
+     */
     public long getSymbolsCount() {
         return this.charsCount;
     }
 
+    /**
+     * Метод, возвращающий количество уникальных слов в заданной строке
+     * @return uniqueWordsCount - количество уникальных слов в заданной строке
+     */
     public long getUniqueWordsCount() {
         return this.uniqueWordsCount;
     }
 
+    /**
+     * Метод, проверающий заданный символ ch на соответствие необходимым условиям
+     * @param ch заданный символ для проверки в формате int
+     * @return true - если символ соответствует условиям, false - если не соответствует
+     */
     public boolean isValidCharacter(int ch) {
         return isValidCharacter((char) ch);
     }
 
+    /**
+     * Метод, проверающий заданный символ ch на соответствие необходимым условиям
+     * @param ch заданный символ для проверки в формате char
+     * @return true - если символ соответствует условиям, false - если не соответствует
+     */
     public static boolean isValidCharacter(char ch) {
         boolean cond1 = (ch >= 'A' && ch <= 'Z');
         boolean cond2 = (ch >= 'a' && ch <= 'z');
@@ -51,13 +99,27 @@ public class StringAnalyzer {
         return false;
     }
 
+    /**
+     * Метод, проверяющий заданную строку (слово) на корректное количество и расположение в ней символа тире '-'
+     * @param word заданная строка (слово) для проверки
+     * @return true - если расположение тире в строке являетмя правильным, т.е. встречается не более одного раза и
+     * не расположено в начале строки либо в конце строки, false - в случае неправильного расположения тире в строке
+     */
     public static boolean isValidDashInWord(String word) {
         if(word.length() <= 0) {
             return false;
         }
-        int firstDashIndex = word.indexOf('-');
-        char lastChar = word.charAt(word.length() - 1);
-        if(firstDashIndex == 0 || lastChar == '-') {
+        char[] charFromWord = word.toCharArray();
+        if(charFromWord[0] == '-' || charFromWord[charFromWord.length - 1] == '-') {
+            return false;
+        }
+        int amountOfDashes = 0;
+        for (int i = 0; i < charFromWord.length - 1; i++) {
+            if(charFromWord[i] == '-') {
+                amountOfDashes++;
+            }
+        }
+        if(amountOfDashes > 1) {
             return false;
         }
         return true;
@@ -70,6 +132,9 @@ public class StringAnalyzer {
         return "";
     }
 
+    /**
+     *
+     */
     public void analyze() {
         try(Reader reader = new FileReader(string)) {
             boolean startWord = false; // Флаг начала составления слова
@@ -185,5 +250,8 @@ public class StringAnalyzer {
             System.out.println("Слово " + "'" + word + "'" + " отсутстыует в данной строке!");
         }
     }
+
+//    сортировка мапы через стрим апи
+//    top.entrySet().stream() .sorted(Map.Entry.<String, Integer>comparingByValue().reversed()).limit(10) .forEach(System.out::println);
 
 }
