@@ -19,7 +19,7 @@ public class RecursiveSum extends RecursiveTask<Long> {
     /**
      * Конструктор с параметрами для объекта задачи суммирования
      * @param from - начало диаппазона для суммирования
-     * @param to - конеци диаппазона суммирования
+     * @param to - конец диаппазона суммирования
      * @param threshold - ширина (предел) дробления задачи
      */
     public RecursiveSum(long from, long to, long threshold) {
@@ -48,7 +48,7 @@ public class RecursiveSum extends RecursiveTask<Long> {
             return sum;
         } else {
             long middle = (to + from) / 2; // Определяем середину заданного диаппазона текущей задачи
-            RecursiveSum firstHalf = new RecursiveSum(0, middle, threshold); // Создаём первую подзадачу
+            RecursiveSum firstHalf = new RecursiveSum(from, middle, threshold); // Создаём первую подзадачу
             firstHalf.fork(); // fork() - кладёт задачу в локальную очередь и тут же возвращается, даёт возможность "украсть" задачу
             RecursiveSum secondHalf = new RecursiveSum(middle + 1, to, threshold); // Создаём вторую подзадачу
             long secondValue = secondHalf.compute();
