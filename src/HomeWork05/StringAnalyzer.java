@@ -7,7 +7,7 @@ import java.io.Reader;
 import java.util.*;
 
 /**
- * Класс, позволяющий найти все слова в заданной строке
+ * Класс, анализирующий строку и позволяющий найти все слова в заданной строке
  */
 public class StringAnalyzer {
 
@@ -125,15 +125,9 @@ public class StringAnalyzer {
         return true;
     }
 
-    // TODO
-    public String readFile(String fileName) {
-
-
-        return "";
-    }
-
     /**
-     *
+     * Метод, осуществляющий поиск всех слов в заданной строке и формирующий из найденных слов карту.
+     * Ключами карты являются найденные слова, а значениями - количество повторений этих слов в строке
      */
     public void analyze() {
         try(Reader reader = new FileReader(string)) {
@@ -155,15 +149,13 @@ public class StringAnalyzer {
                     startWord = false;
                     endWord = true;
                 }
-                /* */
                 if(startWord && (word == null)) {
                     word = new StringBuilder();
                 }
-                /* */
                 if(startWord && (word != null)) {
                     word.append(readableChar);
                 }
-                /* */
+                /* После завершения формирования(считывания) слова добавляем его в карту и в коллекцию Set */
                 if(endWord && (word != null)) {
                     if(isValidDashInWord(word.toString())) {
                         uniqueWords.add(word.toString());
@@ -188,70 +180,83 @@ public class StringAnalyzer {
             e.printStackTrace();
         }
         this.uniqueWordsCount = uniqueWords.size();
+
+        setWordsCount();
     }
 
+    /**
+     * Метод осуществляет поиск указанное количество слов, наиболее часто встречающихся в строке,
+     * и выводит на печать найденное слово и количество его повторений в строке
+     * порядке уменшения количества повторений.
+     * @param amountUniqueWords - количество часто встречаемых слов необходимых для поиска и печати
+     */
     public void printCommonWords(int amountUniqueWords) {
-        int maxAmountForPrinting = 0;
+        System.out.println("Most " + amountUniqueWords + " common words: ");
+        Map<String, Integer> tmpMap = new HashMap<>(words);
         int amount = 0;
-        int maxAmount = 0;
-        while(amount < amountUniqueWords) {
-            // TODO поиск в map часто встречаемого слова
-
-
+        int maxTmpAmount = 0;
+        String maxTmpString = "";
+        while(amount < amountUniqueWords && tmpMap.size() > 0) {
+            Set<Map.Entry<String, Integer>> set = tmpMap.entrySet();
+            for (Map.Entry<String, Integer> word : set) {
+                if(word.getValue() > maxTmpAmount) {
+                    maxTmpString = word.getKey();
+                    maxTmpAmount = word.getValue();
+                }
+            }
+            System.out.println(maxTmpString + " - " + maxTmpAmount + " раз(а)");
+            tmpMap.remove(maxTmpString);
             amount++;
+            maxTmpAmount = 0;
+            maxTmpString = "";
         }
     }
 
+    /**
+     * Метод, печатающий заданный TOP слов через Stream API
+     * @param amountUniqueWords - количество часто встречаемых слов необходимых для поиска и печати
+     */
+    public void printTop(int amountUniqueWords) {
+        System.out.println("TOP with Stream API: ");
+        words.entrySet().stream() .sorted(Map.Entry.<String, Integer>comparingByValue().reversed()).limit(amountUniqueWords) .forEach(System.out::println);
+    }
 
+    /**
+     * Метод печатает основную информацию по заданной строке
+     */
     public void printInfo() {
-        System.out.println("charsCount = " + this.charsCount);
+        System.out.println("Количество символов в строке = " + getSymbolsCount());
+        System.out.println("Количество всех слов в строке = " + getWordsCount());
+        System.out.println("Количество уникальных слов в книге = " + getUniqueWordsCount());
+    }
 
-        Iterator<Character> iterator = characters.listIterator();
-
-        for (int i = 0; i < 20; i++) {
-            if(iterator.hasNext()){
-                char ch = iterator.next();
-                System.out.print(ch);
-            }
-        }
-
-        int uniqueWordsCount = words.size();
-        System.out.println("\nКоличество уникальных слов в книге: " + uniqueWordsCount);
-
-
-        System.out.println("Часть слов из романа:");
-
+    /**
+     * Метод подсчитывает количество всех(с учётом повторений) слов в заданной строке
+     */
+    private void setWordsCount() {
         Set<Map.Entry<String, Integer>> set = words.entrySet();
-
-        int i = 0;
-        for (Map.Entry<String, Integer> word : set) {
-            if(i < 100) {
-                System.out.println(word.getKey() + " : " + word.getValue());
-            } else {
-                break;
-            }
-            i++;
-        }
-
         for (Map.Entry<String, Integer> word : set) {
             wordsCount += word.getValue();
         }
-
     }
 
+    /**
+     * Метод возвращает количество всех слов в заданной строке
+     * @return количество всех слов в заданной строке
+     */
     public long getWordsCount() {
         return this.wordsCount;
     }
 
-    public void printHowMany(String word) {
+    /**
+     * Метод печатает количество повторений для указанного слова
+     * @param word - слово, для которого нужно распечатать количество его повторений в исходной строке
+     */
+    public void printAmountForWord(String word) {
         if(words.containsKey(word)) {
             System.out.println("Слово " + "'" + word + "'" + " встречается " + words.get(word) + " раз(а).");
         } else {
             System.out.println("Слово " + "'" + word + "'" + " отсутстыует в данной строке!");
         }
     }
-
-//    сортировка мапы через стрим апи
-//    top.entrySet().stream() .sorted(Map.Entry.<String, Integer>comparingByValue().reversed()).limit(10) .forEach(System.out::println);
-
 }

@@ -4,24 +4,28 @@ public class EasySearch implements ISearchEngine {
 
     /**
      * Метод, который осуществляет поиск заданной строки word в строке text
-     * и возвращающий количество раз, которое оно встречаетмя
+     * и возвращающий количество раз, которое оно встречается
      * @param text заданная строка для поиска
      * @param word строка в которой ищем
      * @return количество раз, которое строка text встречается в строке word
      */
     @Override
     public long search(String text, String word) {
-        long count = 0L;
+        long count = 0L; // Количество найденных строк
         // TODO - нужна ли проверка соседних символов, что бы не находило часть слова???
 //        if(!StringAnalyzer.isValidDashInWord(word)) {
 //            return count;
 //        }
-        StringBuilder builder = new StringBuilder(text);
-        boolean isMatchFound = false;
-        boolean beforeWord = false;
-        boolean afterWord = false;
-        int indexFind = -1;
-        int fromIndex = 0;
+        boolean isMatchFound = false; // Переменная для отслеживания найденных совпадений
+        boolean beforeWord = false; // Переменная для отслеживания валидности символа, стоящего перед найденной строкой
+        boolean afterWord = false; // Переменная для отслеживания валидности символа, стоящего после найденной строки
+        int indexFind = -1; // Переменная, запоминающая начальный индекс в случае нахождения искомой строки
+        int fromIndex = 0; // Переменная для индекса, с которого будем искать строку
+        /*
+         * Цикл для поиска строки word, который будет работать до тех пор, пока будут находится совпадения.
+         * На каждой итерации мы ищем совпадение, если находим, то вычисляем стартовый индекс для следующего поиска на
+         * следующей итерации.
+         */
         do {
             indexFind = text.indexOf(word, fromIndex);
             if(indexFind == -1) {
