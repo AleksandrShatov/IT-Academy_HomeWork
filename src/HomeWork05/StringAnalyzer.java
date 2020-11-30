@@ -34,19 +34,19 @@ public class StringAnalyzer {
     /**
      *
      */
-    private List<Character> characters = new ArrayList<>();
+    private final List<Character> characters;
 
     /**
      * Карта, которая хранит все найденные слова
      * Ключём(K) являетмя уникальное слово, найденное в заданной строке
      * Значением(V) являетмя количество раз, которое данное слово встречается в заданной строке
      */
-    private Map<String, Integer> words = new HashMap<>();
+    private final Map<String, Integer> words;
 
     /**
      * Набор, содержащий только уникальные слова, найденные в заданной строке
      */
-    private Set<String> uniqueWords = new HashSet<>();
+    private final Set<String> uniqueWords;
 
     /**
      * Конструктор, принимающий строку, в которой необходимо найти слова
@@ -54,6 +54,9 @@ public class StringAnalyzer {
      */
     public StringAnalyzer(String string) {
         this.string = string;
+        this.characters = new ArrayList<>();
+        this.words = new HashMap<>();
+        this.uniqueWords = new HashSet<>();
     }
 
     /**
@@ -216,7 +219,7 @@ public class StringAnalyzer {
      * Метод, печатающий заданный TOP слов через Stream API
      * @param amountUniqueWords - количество часто встречаемых слов необходимых для поиска и печати
      */
-    public void printTop(int amountUniqueWords) {
+    public void printTop(int amountUniqueWords) { // TODO
         System.out.println("TOP with Stream API: ");
         words.entrySet().stream() .sorted(Map.Entry.<String, Integer>comparingByValue().reversed()).limit(amountUniqueWords) .forEach(System.out::println);
     }

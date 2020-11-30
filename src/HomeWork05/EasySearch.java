@@ -12,10 +12,7 @@ public class EasySearch implements ISearchEngine {
     @Override
     public long search(String text, String word) {
         long count = 0L; // Количество найденных строк
-        // TODO - нужна ли проверка соседних символов, что бы не находило часть слова???
-//        if(!StringAnalyzer.isValidDashInWord(word)) {
-//            return count;
-//        }
+
         boolean isMatchFound = false; // Переменная для отслеживания найденных совпадений
         boolean beforeWord = false; // Переменная для отслеживания валидности символа, стоящего перед найденной строкой
         boolean afterWord = false; // Переменная для отслеживания валидности символа, стоящего после найденной строки
@@ -34,7 +31,7 @@ public class EasySearch implements ISearchEngine {
                 isMatchFound = true;
                 fromIndex = indexFind + word.length();
 
-                if(fromIndex >= text.length() - 1) {
+                if(fromIndex > text.length() - 1) {
                     afterWord = true;
                 } else {
                     afterWord = !StringAnalyzer.isValidCharacter(text.charAt(fromIndex));

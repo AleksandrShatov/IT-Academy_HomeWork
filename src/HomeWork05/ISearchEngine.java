@@ -1,5 +1,6 @@
 package HomeWork05;
 
+@FunctionalInterface
 public interface ISearchEngine {
 
     /**
