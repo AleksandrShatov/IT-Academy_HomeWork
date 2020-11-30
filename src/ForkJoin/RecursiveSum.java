@@ -50,7 +50,7 @@ public class RecursiveSum extends RecursiveTask<Long> {
             long middle = (to + from) / 2; // Определяем середину заданного диаппазона текущей задачи
             RecursiveSum firstHalf = new RecursiveSum(from, middle, threshold); // Создаём первую подзадачу
             firstHalf.fork(); // fork() - кладёт задачу в локальную очередь и тут же возвращается, даёт возможность "украсть" задачу
-            RecursiveSum secondHalf = new RecursiveSum(middle + 1, to, threshold); // Создаём вторую подзадачу
+            RecursiveSum secondHalf = new RecursiveSum(middle, to, threshold); // Создаём вторую подзадачу
             long secondValue = secondHalf.compute();
             return firstHalf.join() + secondValue; // 'Склеиваем' два решения и возвращаем результат суммирования
 
